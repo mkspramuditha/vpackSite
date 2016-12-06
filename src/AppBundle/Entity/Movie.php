@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @ORM\Table(name="movie")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MovieRepository")
+ * @Vich\Uploadable
  */
 class Movie
 {
@@ -108,7 +109,7 @@ class Movie
      *     mimeTypesMessage = "Sorry. File type not supported. Only file types supported are *.JPEG, *.PNG, *.GIF, *.PDF, *.RTF"
      * )
      *
-     * @Vich\UploadableField(mapping="movie_cover", fileNameProperty="coverImage")
+     * @Vich\UploadableField(mapping="movie", fileNameProperty="coverImage")
      *
      * @var File
      */
