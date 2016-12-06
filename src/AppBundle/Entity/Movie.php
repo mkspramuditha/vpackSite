@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Movie
@@ -20,6 +23,13 @@ class Movie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateTime", type="datetime", nullable=true)
+     */
+    private $dateTime;
 
     /**
      * @var string
@@ -89,6 +99,27 @@ class Movie
      */
     private $coverImage;
 
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Assert\File(
+     *     maxSize="2M",
+     *     mimeTypes={"image/png", "image/jpeg", "image/gif", "application/pdf", "text/rtf"},
+     *     mimeTypesMessage = "Sorry. File type not supported. Only file types supported are *.JPEG, *.PNG, *.GIF, *.PDF, *.RTF"
+     * )
+     *
+     * @Vich\UploadableField(mapping="movie_cover", fileNameProperty="coverImage")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
+     */
+    private $updatedAt;
 
     /**
      * Get id
@@ -358,5 +389,51 @@ class Movie
     public function removeQuality(\AppBundle\Entity\Quality $quality)
     {
         $this->quality->removeElement($quality);
+    }
+
+    /**
+     * Set dateTime
+     *
+     * @param \DateTime $dateTime
+     * @return Movie
+     */
+    public function setDateTime($dateTime)
+    {
+        $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTime
+     *
+     * @return \DateTime 
+     */
+    public function getDateTime()
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Movie
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
