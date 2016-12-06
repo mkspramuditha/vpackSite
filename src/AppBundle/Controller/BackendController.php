@@ -86,8 +86,7 @@ class BackendController extends DefaultController
         $name = $request->get('name');
         $year = $request->get('year');
 
-        $movies = $this->getRepository('Movie')->findBy(array('name'=>$name));
-//        var_dump($movies);
+        $movies = $this->getRepository('Movie')->searchMovies($name,$year);
 
         return $this->render('backend/movieList.html.twig',array(
             'movies'=>$movies

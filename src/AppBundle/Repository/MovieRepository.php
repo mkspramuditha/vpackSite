@@ -12,15 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class MovieRepository extends EntityRepository
 {
-    public function searchMovies($name)
+    public function searchMovies($name,$year)
     {
+        $name = '%'.$name.'%';
 
         $qb = $this->createQueryBuilder('o');
 
         $qb->select('o')
-            ->leftJoin('o.class','class')
-            ->where('class.account = :account')
-            ->setParameter('account',$account)
+            ->orWhere('o.name LIKE :name')
+            ->orWhere('o.year LIKE :year')
+            ->setParameter('name',$name)
+            ->setParameter('year',$year)
         ;
         return $qb->getQuery()->getResult();
     }
