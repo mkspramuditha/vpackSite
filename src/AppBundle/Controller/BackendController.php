@@ -83,7 +83,15 @@ class BackendController extends DefaultController
 
     public function movieListAction(Request $request)
     {
-        return $this->render('backend/movieList.html.twig');
+        $name = $request->get('name');
+        $year = $request->get('year');
+
+        $movies = $this->getRepository('Movie')->findBy(array('name'=>$name));
+//        var_dump($movies);
+
+        return $this->render('backend/movieList.html.twig',array(
+            'movies'=>$movies
+        ));
     }
 
 

@@ -12,4 +12,16 @@ use Doctrine\ORM\EntityRepository;
  */
 class MovieRepository extends EntityRepository
 {
+    public function searchMovies($name)
+    {
+
+        $qb = $this->createQueryBuilder('o');
+
+        $qb->select('o')
+            ->leftJoin('o.class','class')
+            ->where('class.account = :account')
+            ->setParameter('account',$account)
+        ;
+        return $qb->getQuery()->getResult();
+    }
 }
