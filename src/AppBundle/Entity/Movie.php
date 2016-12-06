@@ -36,9 +36,8 @@ class Movie
     private $year;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="language", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Language", inversedBy="movie")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
      */
     private $language;
 
@@ -64,16 +63,15 @@ class Movie
     private $vpackId;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="quality", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="Quality")
+     * @ORM\JoinTable(name="Quality_movie")
      */
     private $quality;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=255)
+     * @ORM\Column(name="description", type="string", length=700)
      */
     private $description;
 
@@ -330,5 +328,35 @@ class Movie
     public function getCoverImage()
     {
         return $this->coverImage;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->quality = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add quality
+     *
+     * @param \AppBundle\Entity\Quality $quality
+     * @return Movie
+     */
+    public function addQuality(\AppBundle\Entity\Quality $quality)
+    {
+        $this->quality[] = $quality;
+
+        return $this;
+    }
+
+    /**
+     * Remove quality
+     *
+     * @param \AppBundle\Entity\Quality $quality
+     */
+    public function removeQuality(\AppBundle\Entity\Quality $quality)
+    {
+        $this->quality->removeElement($quality);
     }
 }
