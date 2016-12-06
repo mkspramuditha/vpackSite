@@ -91,4 +91,11 @@ class Quality
     {
         return $this->metacode;
     }
+
+    function __toString()
+    {
+        return $this->name;
+    }
+
+
 }

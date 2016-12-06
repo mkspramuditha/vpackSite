@@ -136,4 +136,10 @@ class Language
     {
         return $this->movie;
     }
+
+    function __toString()
+    {
+        return $this->name;
+    }
+
 }

@@ -1,9 +1,11 @@
 <?php
 
 namespace AppBundle\Controller;
+
+use AppBundle\Entity\Movie;
+use AppBundle\Form\MovieType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-
 
 
 class BackendController extends DefaultController
@@ -58,7 +60,21 @@ class BackendController extends DefaultController
 
     public function movieAddAction(Request $request)
     {
-        return $this->render('backend/movieAdd.html.twig');
+
+        $movie = new Movie();
+        $form = $this->createForm(MovieType::class, $movie);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() & $form->isValid()) {
+            $movie->setDateTime(new \DateTime());
+            $this->insert($movie);
+
+            return $this->redirectToRoute('adminDashboard');
+        }
+        return $this->render('backend/movieAdd.html.twig', array(
+            'form' => $form->createView(),
+        ));
+
+
     }
 
     /**

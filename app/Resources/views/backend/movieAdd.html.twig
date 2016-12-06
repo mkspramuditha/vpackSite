@@ -1,3 +1,96 @@
 {% extends 'baseBackend.html.twig' %}
 
 {% block title %}Add Movie{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% for flash_message in app.session.flashBag.get('error') %}
+                    <div class="alert alert-danger" style="text-align: center">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+                {% for flash_message in app.session.flashBag.get('success') %}
+                    <div class="alert alert-success" style="text-align: center">
+                        {{ flash_message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-0 col-md-7 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header">Add New Movie</h4>
+                        {{ form_start(form,{'attr':{'class':'form'}}) }}
+
+                        <div class="form-group">
+                            {{ form_errors(form.name) }}
+                            {{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.name) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.year) }}
+                            {{ form_widget(form.year,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.year) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_errors(form.language) }}
+                            {{ form_widget(form.language,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.language) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.genre) }}
+                            {{ form_widget(form.genre,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.genre) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.rating) }}
+                            {{ form_widget(form.rating,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.rating) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.vpackId) }}
+                            {{ form_widget(form.vpackId,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.vpackId) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.quality) }}
+                            {{ form_widget(form.quality,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.quality) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.description) }}
+                            {{ form_widget(form.description,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.description) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.youtubeLink) }}
+                            {{ form_widget(form.youtubeLink,{'attr':{'class':'form-control'}}) }}
+                            {{ form_label(form.youtubeLink) }}
+                        </div>
+
+                        <div class="form-group">
+                            {{ form_errors(form.imageFile) }}
+                            {{ form_widget(form.imageFile,{'attr':{'class':'form-control','accept':'image/jpeg,image/gif,image/png,application/pdf,.rtf'}}) }}
+                            {{ form_label(form.imageFile) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form.save,{'attr':{'class':'btn ink-reaction btn-primary' }}) }}
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
