@@ -52,4 +52,23 @@ class BackendController extends DefaultController
         exit;
     }
 
+    /**
+     * @Route("admin/dashboard/movie/add", name="adminMovieAdd")
+     */
+
+    public function movieAddAction(Request $request)
+    {
+        return $this->render('backend/movieAdd.html.twig');
+    }
+
+    /**
+     * @Route("admin/dashboard/movie/list", name="adminMovieList")
+     */
+
+    public function movieListAction(Request $request)
+    {
+        return $this->render('backend/movieList.html.twig');
+    }
+
+
 }
